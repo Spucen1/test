@@ -22,6 +22,11 @@ async function convertBtn() {
 
     amount = parseFloat(amount);
 
+    if (Number.isNaN(amount)) {
+        vystup.textContent = "nothing ever happens";
+        return;
+    }
+
     let value = await convert(amount, cur1, cur2);
 
     let conversion = {
@@ -106,4 +111,8 @@ document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         convertBtn();
     }
+});
+document.getElementById("clear").addEventListener("click", function () {
+    localStorage.clear();
+    loadconv();
 });
