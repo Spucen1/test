@@ -57,3 +57,8 @@ p {
 .currency {
     cursor: pointer;
 }
+
+#clear {
+    width: 5vw;
+    margin-bottom: 1vw;
+}
