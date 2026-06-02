@@ -43,3 +43,14 @@ document.getElementById("czk").addEventListener("click", function () {
     document.getElementById("cur1").value = "CZK";
     document.getElementById("cur2").value = "EUR";
 });
+document.getElementById("switch").addEventListener("click", function () {
+    let value = document.getElementById("cur1").value;
+    document.getElementById("cur1").value = document.getElementById("cur2").value;
+    document.getElementById("cur2").value = value;
+});
+// Call convert when Enter is pressed anywhere (e.g., after focusing an input)
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        convertBtn();
+    }
+});

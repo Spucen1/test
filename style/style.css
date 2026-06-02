@@ -22,6 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: 2vw;
+    background-color: var(--secondary_background);
 }
 
 .container {
@@ -43,10 +44,14 @@ select {
     padding: 0;
 }
 
-#vystup {
+p {
     height: 25px;
     margin: 0;
     padding: 0;
+}
+
+#switch {
+    cursor: pointer;
 }
 
 .currency {
