@@ -59,12 +59,7 @@ async function convertBtn() {
 
 function loadconv() {
     const box = document.getElementById("convbox");
-    let conversions = localStorage.getItem("conversions");
-
-    if (conversions === null) {
-        return;
-    }
-    conversions = JSON.parse(conversions);
+    let conversions = JSON.parse(localStorage.getItem("conversions") || "[]");
 
     box.innerHTML = "";
 
