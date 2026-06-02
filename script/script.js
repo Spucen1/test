@@ -27,3 +27,15 @@ function convertBtn() {
 }
 
 document.getElementById("convert").addEventListener("click", convertBtn);
+document.getElementById("eur").addEventListener("click", function () {
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "USD";
+});
+document.getElementById("usd").addEventListener("click", function () {
+    document.getElementById("cur1").value = "USD";
+    document.getElementById("cur2").value = "EUR";
+});
+document.getElementById("czk").addEventListener("click", function () {
+    document.getElementById("cur1").value = "CZK";
+    document.getElementById("cur2").value = "EUR";
+});
