@@ -2,7 +2,7 @@ const vystup = document.getElementById("vystup");
 
 async function convert(amount, from, to) {
     try {
-        const res = await fetch("https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD,CZK,GBP");
+        const res = await fetch("https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD,CZK,GBP,PLN,CAD,CHF");
         const data = await res.json();
 
         const rates = data.rates;
@@ -29,6 +29,11 @@ async function convertBtn() {
 
     let value = await convert(amount, cur1, cur2);
 
+    if (Number.isNaN(value)) {
+        vystup.textContent = "nothing ever happens";
+        return;
+    }
+
     let conversion = {
         cur1: [cur1, amount.toFixed(2)],
         cur2: [cur2, value.toFixed(2)],
@@ -54,7 +59,7 @@ async function convertBtn() {
 
     loadconv();
 
-    vystup.textContent = value.toFixed(2);
+    vystup.textContent = `${amount.toFixed(2)} ${cur1} = ${value.toFixed(2)} ${cur2}`;
 }
 
 function loadconv() {
@@ -79,28 +84,66 @@ function loadconv() {
     });
 }
 
-window.addEventListener("DOMContentLoaded", loadconv);
+async function loadrate() {
+    const rate = document.getElementById("rate");
+    const cur1 = document.getElementById("cur1").value;
+    const cur2 = document.getElementById("cur2").value;
+
+    let value = await convert(1, cur1, cur2);
+
+    if (Number.isNaN(value)) {
+        vystup.textContent = "nothing ever happens";
+        return;
+    }
+
+    rate.textContent = `1 ${cur1} = ${value.toFixed(2)} ${cur2}`;
+}
+
+window.addEventListener("DOMContentLoaded", function () {
+    loadrate();
+    loadconv();
+});
 document.getElementById("convert").addEventListener("click", convertBtn);
 document.getElementById("eur").addEventListener("click", function () {
-    document.getElementById("cur1").value = "EUR";
-    document.getElementById("cur2").value = "USD";
-});
-document.getElementById("usd").addEventListener("click", function () {
     document.getElementById("cur1").value = "USD";
     document.getElementById("cur2").value = "EUR";
+    loadrate();
+});
+document.getElementById("usd").addEventListener("click", function () {
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "USD";
+    loadrate();
 });
 document.getElementById("czk").addEventListener("click", function () {
-    document.getElementById("cur1").value = "CZK";
-    document.getElementById("cur2").value = "EUR";
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "CZK";
+    loadrate();
 });
 document.getElementById("gbp").addEventListener("click", function () {
-    document.getElementById("cur1").value = "GBP";
-    document.getElementById("cur2").value = "EUR";
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "GBP";
+    loadrate();
+});
+document.getElementById("pln").addEventListener("click", function () {
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "PLN";
+    loadrate();
+});
+document.getElementById("cad").addEventListener("click", function () {
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "CAD";
+    loadrate();
+});
+document.getElementById("chf").addEventListener("click", function () {
+    document.getElementById("cur1").value = "EUR";
+    document.getElementById("cur2").value = "CHF";
+    loadrate();
 });
 document.getElementById("switch").addEventListener("click", function () {
     let value = document.getElementById("cur1").value;
     document.getElementById("cur1").value = document.getElementById("cur2").value;
     document.getElementById("cur2").value = value;
+    loadrate();
 });
 document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
@@ -110,4 +153,7 @@ document.addEventListener("keydown", function (event) {
 document.getElementById("clear").addEventListener("click", function () {
     localStorage.clear();
     loadconv();
+});
+document.querySelectorAll("select").forEach(function (select) {
+    select.addEventListener("change", loadrate);
 });

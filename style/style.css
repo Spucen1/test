@@ -48,6 +48,7 @@ p {
     height: 25px;
     margin: 0;
     padding: 0;
+    font-size: 18px;
 }
 
 #switch {
@@ -56,9 +57,14 @@ p {
 
 .currency {
     cursor: pointer;
+    margin-bottom: 0.3vw;
 }
 
 #clear {
     width: 65px;
     margin-bottom: 1vw;
+}
+
+#vystup {
+    font-size: 25px;
 }
