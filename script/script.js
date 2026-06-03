@@ -9,7 +9,13 @@ async function convert(amount, from, to) {
 
         rates["EUR"] = 1;
 
-        return (amount / rates[from]) * rates[to];
+        const value = (amount / rates[from]) * rates[to];
+
+        return {
+            value: value.toFixed(2),
+            conversion: `${amount.toFixed(2)} ${from} = ${value.toFixed(2)} ${to}`,
+            date: data.date,
+        };
     } catch (error) {
         return "nothing ever happens";
     }
@@ -27,16 +33,18 @@ async function convertBtn() {
         return;
     }
 
-    let value = await convert(amount, cur1, cur2);
+    let body = await convert(amount, cur1, cur2);
 
-    if (Number.isNaN(value)) {
-        vystup.textContent = "nothing ever happens";
+    if (typeof body !== "object") {
+        vystup.textContent = body;
         return;
     }
 
+    let value = body.value;
+
     let conversion = {
         cur1: [cur1, amount.toFixed(2)],
-        cur2: [cur2, value.toFixed(2)],
+        cur2: [cur2, value],
     };
 
     let conversions = localStorage.getItem("conversions");
@@ -59,7 +67,7 @@ async function convertBtn() {
 
     loadconv();
 
-    vystup.textContent = `${amount.toFixed(2)} ${cur1} = ${value.toFixed(2)} ${cur2}`;
+    vystup.textContent = body.conversion;
 }
 
 function loadconv() {
@@ -89,14 +97,14 @@ async function loadrate() {
     const cur1 = document.getElementById("cur1").value;
     const cur2 = document.getElementById("cur2").value;
 
-    let value = await convert(1, cur1, cur2);
+    let body = await convert(1, cur1, cur2);
 
-    if (Number.isNaN(value)) {
-        vystup.textContent = "nothing ever happens";
+    if (typeof body !== "object") {
+        vystup.textContent = body;
         return;
     }
 
-    rate.textContent = `1 ${cur1} = ${value.toFixed(2)} ${cur2}`;
+    rate.textContent = `${body.conversion} (updated ${body.date})`;
 }
 
 window.addEventListener("DOMContentLoaded", function () {
