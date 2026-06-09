@@ -17,26 +17,45 @@
                     <option value="EUR">EUR</option>
                     <option value="CZK">CZK</option>
                     <option value="USD" selected="selected">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="PLN">PLN</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
                 </select>
                 <p id="switch">⇄</p>
                 <select name="mena2" id="cur2">
                     <option value="EUR" selected="selected">EUR</option>
                     <option value="CZK">CZK</option>
                     <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="PLN">PLN</option>
+                    <option value="CAD">CAD</option>
+                    <option value="CHF">CHF</option>
                 </select>
                 <button id="convert">Convert</button>
             </div>
             <div class="container">
                 <input type="text" id="value1" class="amount" placeholder="amount" />
-                <p id="vystup">idk</p>
+                <p id="vystup">---</p>
             </div>
+            <p id="rate"></p>
         </div>
 
         <div class="box">
             <h2>Currencies</h2>
-            <p id="eur" class="currency">EUR</p>
-            <p id="usd" class="currency">USD</p>
-            <p id="czk" class="currency">CZK</p>
+            <p id="eur" class="currency">🇪🇺 EUR</p>
+            <p id="usd" class="currency">🇺🇸 USD</p>
+            <p id="czk" class="currency">🇨🇿 CZK</p>
+            <p id="gbp" class="currency">🇬🇧 GBP</p>
+            <p id="pln" class="currency">🇵🇱 PLN</p>
+            <p id="cad" class="currency">🇨🇦 CAD</p>
+            <p id="chf" class="currency">🇨🇭 CHF</p>
+        </div>
+
+        <div class="box">
+            <h2>Latest Conversions</h2>
+            <div class="container" id="convbox"></div>
+            <button id="clear">Clear</button>
         </div>
 
         <script src="script/script.js"></script>
